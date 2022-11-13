@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: Shopino - OpenAPI 3.0
+  description: |-
+    simple linkshortner
+  contact:
+    email: navid.falah7@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: https://localhost/api/v1/
+tags:
+  - name: link-shortner
+    description: creates and redirects to new links
+paths:
+
+  /linkshortener:
+    post:
+      tags:
+        - link-shortner
+      summary: Add a new pet to the store
+      description: Add a new pet to the store
+      requestBody:
+        required: True
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_link:
+                  type: string
+                  example: "https://mail.google.com/mail/u/0/#inbox"
+     
+              
+    
+      responses:
+        '200':
+          description: Successful operation
+          $ref: '#/components/responses/linkshortenerObject'          
+
+        '500':
+          description: unSuccessful operation
+          $ref: '#/components/responses/CreationFailedObject'   
+          
+        '400':
+          description: bad url
+          $ref: '#/components/responses/UrlNotValidObject' 
+          
+components:
+  
+  responses:
+    linkshortenerOKObject:
+      description: verify your phone
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "ok, new link created"
+              link:
+                type: string
+                example: "http://127.0.0.1:8000/api/v1/linkshortener/redirect-page/K"
+                
+    CreationFailedObject:
+      description: creating object failed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "ok, new link created"
+              link:
+                type: string
+                example: "http://127.0.0.1:8000/api/v1/linkshortener/redirect-page/K"
+                
+    UrlNotValidObject:
+      description: url is not valid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "ok, new link created"
+              link:
+                type: string
+                example: "http://127.0.0.1:8000/api/v1/linkshortener/redirect-page/K"
+              
+                
+  schemas:
+  
+    Link:
+      type: object
+      properties:
+        new_link:
+          type: string
+          example: 'Ddasd'
+        old_link:
+          type: string
+          example: 'asdj'
+        num_views:
+          type: integer
+          example: 321
+
